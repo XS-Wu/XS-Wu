@@ -15,4 +15,4 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-<div align="center"> <img src="https://visitor-badge.glitch.me/badge?page_id=XS-Wu" /> </div>
+<div align="center"> <img src="https://visitor-badge.glitch.me/badge?page_id=XS-Wu.visitor-badge" /> </div>
