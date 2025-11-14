@@ -44,6 +44,13 @@
 </p>
 
 
+### 📈 Publications per year
+
+![Publications per year](assets/pubmed_yearly_bar.png)
+
+### 📊 Publications per month (last 12 months)
+
+![Publications per month](assets/pubmed_monthly_bar.png)
 
 
 ## Recent publications
