@@ -9,6 +9,19 @@
   <a href="https://xs-wu.github.io/"><b>Homepage</b></a>
 </p>
 
+<p align="center">
+  <a href="https://scholar.google.com/citations?hl=en&user=PoPkL4IAAAAJ">
+    <img src="https://img.shields.io/badge/Scholar-Profile-4285F4?style=flat&logo=google-scholar&logoColor=white" alt="Google Scholar">
+  </a>
+  <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Xinsheng+Wu+Huachun+Zou">
+    <img src="https://img.shields.io/badge/PubMed-Papers-2E6C99?style=flat&logo=pubmed&logoColor=white" alt="PubMed">
+  </a>
+  <a href="https://xs-wu.github.io/cv.pdf">
+    <img src="https://img.shields.io/badge/CV-PDF-blue?style=flat" alt="CV">
+  </a>
+</p>
+
+
 ![Github Stats](https://github-readme-stats.vercel.app/api?username=XS-Wu&show_icons=true&theme=radical)
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=XS-Wu&layout=compact)
