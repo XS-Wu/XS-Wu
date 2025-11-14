@@ -1,4 +1,13 @@
-PhD Candidate from Fudan University. 
+
+<p align="center">
+  <samp>Xinsheng Wu · PhD Candidate from Fudan University. </samp>
+</p>
+
+<p align="center">
+  <a href="https://scholar.google.com/citations?hl=en&user=PoPkL4IAAAAJ"><b>Google Scholar</b></a> ·
+  <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Xinsheng+Wu+Huachun+Zou"><b>PubMed</b></a> ·
+  <a href="https://xs-wu.github.io/"><b>Homepage</b></a>
+</p>
 
 ![Github Stats](https://github-readme-stats.vercel.app/api?username=XS-Wu&show_icons=true&theme=radical)
 
