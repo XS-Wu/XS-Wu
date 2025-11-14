@@ -1,7 +1,7 @@
 
-<p align="center">
-  <samp>### Xinsheng Wu · PhD Candidate from Fudan University. </samp>
-</p>
+<h2 align="center">
+  Xinsheng Wu · PhD Candidate from Fudan University
+</h2>
 
 <p align="center">
   <a href="https://scholar.google.com/citations?hl=en&user=PoPkL4IAAAAJ"><b>Google Scholar</b></a> ·
