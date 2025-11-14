@@ -19,7 +19,7 @@ jobs:
       - name: Update README with PubMed RSS
         uses: gautamkrishnar/blog-post-workflow@master
         with:
-          feed_list: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt/?limit=15&utm_campaign=pubmed-2&fc=20251114012738"
+          feed_list: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1TmjO1ifNewr3ZCXeKQ51L39DD88RQ2pLVl-AXtYCYAoQ3OQyZ/?limit=100&utm_campaign=pubmed-2&fc=20251114043805"
           max_post_count: 10
           comment_tag_name: "BLOG-POST-LIST"
           date_format: "yyyy"
