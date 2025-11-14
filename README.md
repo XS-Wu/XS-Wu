@@ -59,8 +59,29 @@
 
 
 
-![Github Stats](https://github-readme-stats.vercel.app/api?username=XS-Wu&show_icons=true&theme=radical)
+### GitHub overview
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=XS-Wu&layout=compact)
+<p align="center">
+  <a href="https://github.com/xs-wu">
+    <img
+      height="150"
+      src="https://github-readme-stats.vercel.app/api?username=xs-wu&show_icons=true&include_all_commits=true&count_private=true&hide_title=true&hide_rank=true"
+      alt="GitHub stats"
+    />
+  </a>
+  <a href="https://github.com/xs-wu">
+    <img
+      height="150"
+      src="https://github-readme-stats.vercel.app/api/top-langs/?username=xs-wu&layout=compact&langs_count=6&hide=jupyter%20notebook"
+      alt="Top languages"
+    />
+  </a>
+</p>
 
-[![trophy](https://github-profile-trophy.vercel.app/?username=XS-Wu&theme=onedark)](https://github.com/ryo-ma/github-profile-trophy)
+<p align="center">
+  <img
+    src="https://github-profile-trophy.vercel.app/?username=xs-wu&theme=flat&no-frame=true&margin-w=10&row=1"
+    alt="GitHub Trophies"
+  />
+</p>
+
