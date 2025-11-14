@@ -1,5 +1,6 @@
 # .github/scripts/pubmed_bars.py
 import os
+import re
 import collections
 from pathlib import Path
 from datetime import datetime
@@ -25,29 +26,60 @@ month_counts_xw = collections.Counter()
 
 def has_xinsheng_wu_first2(entry) -> bool:
     """
-    判断该条目作者列表中，排名第 1 或第 2 是否为 Xinsheng Wu
-    （兼容 Wu, Xinsheng / Xinsheng Wu 等写法）
+    判断该条目作者中，排名第 1 或第 2 是否为 Xinsheng Wu
+    思路：
+    1）尽量从 entry.authors / entry.author 拿到作者字符串
+    2）把这些合并成一个字符串
+    3）按常见分隔符拆成作者列表（';' 或 ',' 等）
+    4）只看前两个作者里是否包含 Xinsheng + Wu
     """
     names = []
 
-    # 尝试从 entry.authors 获取作者列表（feedparser 通常会解析 dc:creator）
-    if hasattr(entry, "authors"):
+    # 1) 先尽量从 entry.authors 取
+    if hasattr(entry, "authors") and entry.authors:
         for a in entry.authors:
             if isinstance(a, dict):
                 names.append(a.get("name", ""))
             else:
                 names.append(str(a))
-    elif "author" in entry:
-        # 只有一个 author 字段时，当作第一作者
-        names.append(entry.author)
+    # 2) 退回来用单个 author 字段
+    if not names and "author" in entry:
+        names.append(str(entry.author))
+
+    if not names:
+        return False
+
+    # 3) 合成一个字符串
+    raw = "; ".join(str(n) for n in names if n).strip()
+    if not raw:
+        return False
+
+    # 统一空格和大小写
+    raw_norm = re.sub(r"\s+", " ", raw).strip()
+    raw_lower = raw_norm.lower()
+
+    # 4) 按常见分隔符拆分作者列表
+    # 优先按分号（很多 RSS 用分号分作者）
+    if ";" in raw_norm:
+        authors = [s.strip() for s in raw_norm.split(";") if s.strip()]
+    else:
+        # 否则按逗号 + 大写开头的姓氏进行拆分（例如 "Wu XS, Li XX, Zhang YY"）
+        # 在逗号后面跟空格 + 大写字母时拆开
+        authors = re.split(r",\s+(?=[A-Z])", raw_norm)
+        authors = [s.strip() for s in authors if s.strip()]
+
+    if not authors:
+        return False
 
     # 只看前两个作者
-    for idx, name in enumerate(names):
-        if idx >= 2:
-            break
-        norm = " ".join(str(name).replace(",", " ").split()).lower()
-        if "xinsheng" in norm and "wu" in norm:
+    first_two = authors[:2]
+
+    for seg in first_two:
+        seg_lower = seg.lower()
+        # 要求同时包含 xinsheng 和 wu
+        if "xinsheng" in seg_lower and "wu" in seg_lower:
             return True
+
     return False
 
 for entry in feed.entries:
@@ -200,8 +232,8 @@ if year_counts_xw:
     ax.set_xticks(range(len(years)))
     ax.set_xticklabels(years)
     ax.set_xlabel("Year", fontsize=10)
-    ax.set_ylabel("Number of publications (1st/2nd author: Xinsheng Wu)", fontsize=10)
-    ax.set_title("Publications per year (1st/2nd author: Xinsheng Wu)", fontsize=11)
+    ax.set_ylabel("Number of publications (First author)", fontsize=10)
+    ax.set_title("Publications per year (First author)", fontsize=11)
     style_axes(ax)
 
     ymax_xw = max(xw_year_values) if xw_year_values else 0
@@ -229,8 +261,8 @@ if month_counts and month_counts_xw:
     ax.set_xticks(range(len(months_seq)))
     ax.set_xticklabels(month_labels, rotation=45, ha="right")
     ax.set_xlabel("Month", fontsize=10)
-    ax.set_ylabel("Number of publications (1st/2nd author: Xinsheng Wu)", fontsize=10)
-    ax.set_title("Publications per month (1st/2nd author: Xinsheng Wu)", fontsize=11)
+    ax.set_ylabel("Number of publications (First author)", fontsize=10)
+    ax.set_title("Publications per month (First author)", fontsize=11)
     style_axes(ax)
 
     ymax_m_xw = max(xw_month_values) if xw_month_values else 0
