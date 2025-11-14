@@ -37,7 +37,25 @@ out_dir.mkdir(parents=True, exist_ok=True)
 
 # ---------- 通用画图小工具 ----------
 
-BAR_COLOR = "#4C72B0"  # 深一点的蓝，偏学术风
+# 五档颜色：灰、绿、蓝、浅红、深红
+COLOR_0 = "#E5E5E5"   # 0 篇
+COLOR_1 = "#b2df8a"   # 1–2 篇
+COLOR_2 = "#a6cee3"   # 3–4 篇
+COLOR_3 = "#fb9a99"   # 5–6 篇
+COLOR_4 = "#e31a1c"   # ≥7 篇
+
+def color_for_count(n: int) -> str:
+    """根据篇数返回对应颜色。"""
+    if n == 0:
+        return COLOR_0
+    elif n <= 2:
+        return COLOR_1
+    elif n <= 4:
+        return COLOR_2
+    elif n <= 6:
+        return COLOR_3
+    else:
+        return COLOR_4
 
 def style_axes(ax):
     """去掉上右边框，统一字体大小。"""
@@ -61,10 +79,11 @@ def add_bar_labels(ax, values):
 
 years = sorted(year_counts.keys())
 year_values = [year_counts[y] for y in years]
+year_colors = [color_for_count(v) for v in year_values]
 
 plt.figure(figsize=(6, 3))
 ax = plt.gca()
-ax.bar(range(len(years)), year_values, color=BAR_COLOR, width=0.9)
+ax.bar(range(len(years)), year_values, color=year_colors, width=0.9)
 ax.set_xticks(range(len(years)))
 ax.set_xticklabels(years)
 ax.set_xlabel("Year", fontsize=10)
@@ -109,11 +128,12 @@ if month_counts:
 
     month_labels = [f"{y}-{m:02d}" for (y, m) in months_seq]
     month_values = [month_counts.get((y, m), 0) for (y, m) in months_seq]
+    month_colors = [color_for_count(v) for v in month_values]
 
     # 宽度调大一点，条之间间隙更小
     plt.figure(figsize=(max(7, len(months_seq) * 0.4), 3))
     ax = plt.gca()
-    ax.bar(range(len(months_seq)), month_values, color=BAR_COLOR, width=0.9)
+    ax.bar(range(len(months_seq)), month_values, color=month_colors, width=0.9)
     ax.set_xticks(range(len(months_seq)))
     ax.set_xticklabels(month_labels, rotation=45, ha="right")
     ax.set_xlabel("Month", fontsize=10)
