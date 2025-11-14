@@ -20,27 +20,31 @@ jobs:
         uses: gautamkrishnar/blog-post-workflow@master
         with:
           feed_list: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt/?limit=15&utm_campaign=pubmed-2&fc=20251114012738"
-          max_post_count: 5
+          max_post_count: 10
           comment_tag_name: "BLOG-POST-LIST"
-          # 只显示年份
           date_format: "yyyy"
-          # 从 PubMed RSS 拿作者和期刊（dc:creator / dc:source）
+          # 从 PubMed RSS 拿作者和期刊
           custom_tags: "authors/dc:creator/,journal/dc:source/"
-          # 最终在 README 里的格式（单行、有项目符号）
-          # 例：- **Title**. Author1, Author2, ..., et al. *Journal*. 2025. [PubMed](链接)
-          template: "- **$title**. $authors. *$journal*. $date. [PubMed]($url)"
-          # JS：清洗作者、最多保留前 5 个、>5 时加 “et al.”，并且把 Xinsheng Wu 加粗
+          # 注意：用 $newline 在每条目前后加换行
+          template: "$newline- **$title**. $authors. *$journal*. $date. [PubMed]($url)$newline"
+          # JS：清洗作者，最多保留前 5 个，>5 时加 “et al.”，并把 Xinsheng Wu 加粗
           item_exec: |
             if (post.authors) {
               // 去掉多余空格和末尾的点号
               let txt = post.authors.replace(/\s+/g, ' ').trim();
               txt = txt.replace(/\.*\s*$/, '');
 
-              // PubMed 作者一般是用逗号分隔，这里按逗号拆分
+              // PubMed 作者一般用逗号分隔
               let parts = txt.split(',').map(a => a.trim()).filter(Boolean);
 
-              // 把 Xinsheng Wu 高亮成粗体
-              parts = parts.map(a => a.includes('Xinsheng Wu') ? '**Xinsheng Wu**' : a);
+              // 把包含 Xinsheng + Wu 的作者统一加粗
+              parts = parts.map(a => {
+                const norm = a.replace(/\s+/g, ' ').toLowerCase();
+                if (norm.includes('xinsheng') && norm.includes('wu')) {
+                  return '**Xinsheng Wu**';
+                }
+                return a;
+              });
 
               // 如果作者多于 5 个，只保留前 5 个 + et al.
               if (parts.length > 5) {
