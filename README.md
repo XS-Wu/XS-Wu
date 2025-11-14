@@ -64,24 +64,25 @@
 <p align="center">
   <a href="https://github.com/xs-wu">
     <img
-      height="150"
-      src="https://github-readme-stats.vercel.app/api?username=xs-wu&show_icons=true&include_all_commits=true&count_private=true&hide_title=true&hide_rank=true"
-      alt="GitHub stats"
+      height="160"
+      src="https://github-readme-stats.vercel.app/api?username=xs-wu&show_icons=true&include_all_commits=true&count_private=true&hide_title=true"
+      alt="GitHub Stats"
     />
   </a>
   <a href="https://github.com/xs-wu">
     <img
-      height="150"
+      height="160"
       src="https://github-readme-stats.vercel.app/api/top-langs/?username=xs-wu&layout=compact&langs_count=6&hide=jupyter%20notebook"
-      alt="Top languages"
+      alt="Top Languages"
     />
   </a>
 </p>
 
 <p align="center">
-  <img
-    src="https://github-profile-trophy.vercel.app/?username=xs-wu&theme=flat&no-frame=true&margin-w=10&row=1"
-    alt="GitHub Trophies"
-  />
+  <a href="https://github.com/lucthienphong1120/github-trophies">
+    <img
+      src="https://github-trophies.vercel.app/?username=xs-wu&theme=flat&no-frame=true&row=1&margin-w=10"
+      alt="GitHub Trophies"
+    />
+  </a>
 </p>
-
