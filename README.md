@@ -29,7 +29,20 @@
   <img src="https://img.shields.io/badge/VS%20Code-IDE-007ACC?style=flat&logo=visual-studio-code&logoColor=white" />
   <img src="https://img.shields.io/badge/Neo4j-graph%20DB-008CC1?style=flat&logo=neo4j&logoColor=white" />
   <img src="https://img.shields.io/badge/LLM-Qwen3%20%7C%20Gemini-FF6A00?style=flat" />
+  <img src="https://img.shields.io/badge/SAS-BASE%20%7C%20STAT%20%7C%20GRAPH%20%7C%20ETS%20%7C%20EM%20%7C%20OR-1E90FF?style=flat&logo=sas&logoColor=white" />
 </p>
+
+### 🛠️ Skills
+<p>
+  <img src="https://img.shields.io/badge/LLM-Fine%20tuning-8A2BE2?style=flat" />
+  <img src="https://img.shields.io/badge/Causal-inference-2E8B57?style=flat" />
+  <img src="https://img.shields.io/badge/Mathematical-modelling-DC143C?style=flat" />
+  <img src="https://img.shields.io/badge/Target%20trial-emulation-FF8C00?style=flat" />
+  <img src="https://img.shields.io/badge/Time%20series-analysis-1E90FF?style=flat" />
+  <img src="https://img.shields.io/badge/Survival-analysis-696969?style=flat" />
+  <img src="https://img.shields.io/badge/Longitudinal-analysis-4682B4?style=flat" />
+</p>
+
 
 
 
