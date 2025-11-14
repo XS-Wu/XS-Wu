@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,7 +31,7 @@ jobs:
 
       - name: Generate yearly & monthly bar charts from PubMed RSS
         env:
-          # 和你 README 里的 RSS 搜索保持一致，limit 建议大一点（比如 200）
+          # 和你 README 里的 RSS 搜索保持一致，limit 建议大一点（比如 100 或 200）
           PUBMED_RSS_URL: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1TmjO1ifNewr3ZCXeKQ51L39DD88RQ2pLVl-AXtYCYAoQ3OQyZ/?limit=100&utm_campaign=pubmed-2&fc=20251114043805"
         run: |
           python .github/scripts/pubmed_bars.py
@@ -42,8 +44,12 @@ jobs:
           # 让当前 HEAD 绑定到本地 main 分支
           git checkout -B main
 
-          # 把两张图加入暂存区（第一次新建也没问题）
-          git add assets/pubmed_yearly_bar.png assets/pubmed_monthly_bar.png || true
+          # 把四张图加入暂存区（包括 Xinsheng Wu 版本）
+          git add \
+            assets/pubmed_yearly_bar.png \
+            assets/pubmed_monthly_bar.png \
+            assets/pubmed_yearly_bar_xw.png \
+            assets/pubmed_monthly_bar_xw.png || true
 
           # 如果没有任何改动，就直接退出
           if git diff --cached --quiet; then
