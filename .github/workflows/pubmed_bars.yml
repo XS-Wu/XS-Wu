@@ -30,7 +30,7 @@ jobs:
       - name: Generate yearly & monthly bar charts from PubMed RSS
         env:
           # 和你 README 里的 RSS 搜索保持一致，limit 建议大一点（比如 200）
-          PUBMED_RSS_URL: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt/?limit=15&utm_campaign=pubmed-2&fc=20251114012738"
+          PUBMED_RSS_URL: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1TmjO1ifNewr3ZCXeKQ51L39DD88RQ2pLVl-AXtYCYAoQ3OQyZ/?limit=100&utm_campaign=pubmed-2&fc=20251114043805"
         run: |
           python .github/scripts/pubmed_bars.py
 
