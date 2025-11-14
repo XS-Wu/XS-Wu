@@ -16,8 +16,32 @@ RSS_URL = os.environ.get(
 print(f"Fetching RSS from: {RSS_URL}")
 feed = feedparser.parse(RSS_URL)
 
+# 总篇数
 year_counts = collections.Counter()
-month_counts = collections.Counter()  # key: (year, month)
+month_counts = collections.Counter()   # key: (year, month)
+# 只统计含有 Xinsheng Wu 的篇数
+year_counts_xw = collections.Counter()
+month_counts_xw = collections.Counter()
+
+def has_xinsheng_wu(entry) -> bool:
+    """判断该条目作者列表中是否包含 Xinsheng Wu（包含 Wu, Xinsheng 等写法）"""
+    names = []
+
+    if hasattr(entry, "authors"):
+        # feedparser 通常把 <dc:creator> 列到 authors 里
+        for a in entry.authors:
+            if isinstance(a, dict):
+                names.append(a.get("name", ""))
+            else:
+                names.append(str(a))
+    elif "author" in entry:
+        names.append(entry.author)
+
+    for name in names:
+        norm = " ".join(str(name).replace(",", " ").split()).lower()
+        if "xinsheng" in norm and "wu" in norm:
+            return True
+    return False
 
 for entry in feed.entries:
     t = entry.get("published_parsed") or entry.get("updated_parsed")
@@ -25,8 +49,14 @@ for entry in feed.entries:
         continue
     dt = datetime(t.tm_year, t.tm_mon, t.tm_mday)
 
+    # 总数
     year_counts[dt.year] += 1
     month_counts[(dt.year, dt.month)] += 1
+
+    # 只算 Xinsheng Wu
+    if has_xinsheng_wu(entry):
+        year_counts_xw[dt.year] += 1
+        month_counts_xw[(dt.year, dt.month)] += 1
 
 if not year_counts:
     print("No entries with year information, nothing to plot.")
@@ -75,7 +105,7 @@ def add_bar_labels(ax, values):
             ha="center", va="bottom", fontsize=9
         )
 
-# ---------- 1) 按年份的条形图 ----------
+# ---------- 1) 全部文章：按年份的条形图 ----------
 
 years = sorted(year_counts.keys())
 year_values = [year_counts[y] for y in years]
@@ -91,7 +121,6 @@ ax.set_ylabel("Number of publications in RSS", fontsize=10)
 ax.set_title("Publications per year (PubMed RSS)", fontsize=11)
 style_axes(ax)
 
-# 让顶部数字完全显示
 ymax = max(year_values) if year_values else 0
 ax.set_ylim(0, ymax * 1.25 + 0.5)
 add_bar_labels(ax, year_values)
@@ -102,7 +131,7 @@ plt.savefig(year_path, dpi=200)
 plt.close()
 print(f"Saved yearly bar chart to {year_path}")
 
-# ---------- 2) 按自然月的条形图（全部月份） ----------
+# ---------- 2) 全部文章：按自然月的条形图（全部月份） ----------
 
 if month_counts:
     # 所有出现过的 (year, month)，找到最早和最晚的自然月
@@ -130,7 +159,6 @@ if month_counts:
     month_values = [month_counts.get((y, m), 0) for (y, m) in months_seq]
     month_colors = [color_for_count(v) for v in month_values]
 
-    # 宽度调大一点，条之间间隙更小
     plt.figure(figsize=(max(7, len(months_seq) * 0.4), 3))
     ax = plt.gca()
     ax.bar(range(len(months_seq)), month_values, color=month_colors, width=0.9)
@@ -152,3 +180,60 @@ if month_counts:
     print(f"Saved monthly bar chart to {month_path}")
 else:
     print("No entries with month information, skip monthly plot.")
+
+# ---------- 3) 仅含 Xinsheng Wu 的文章：按年份 ----------
+
+if year_counts_xw:
+    xw_year_values = [year_counts_xw.get(y, 0) for y in years]  # 同样的年份轴
+    xw_year_colors = [color_for_count(v) for v in xw_year_values]
+
+    plt.figure(figsize=(6, 3))
+    ax = plt.gca()
+    ax.bar(range(len(years)), xw_year_values, color=xw_year_colors, width=0.9)
+    ax.set_xticks(range(len(years)))
+    ax.set_xticklabels(years)
+    ax.set_xlabel("Year", fontsize=10)
+    ax.set_ylabel("Number of publications (author: Xinsheng Wu)", fontsize=10)
+    ax.set_title("Publications per year (author: Xinsheng Wu)", fontsize=11)
+    style_axes(ax)
+
+    ymax_xw = max(xw_year_values) if xw_year_values else 0
+    ax.set_ylim(0, ymax_xw * 1.25 + 0.5)
+    add_bar_labels(ax, xw_year_values)
+
+    plt.tight_layout()
+    year_xw_path = out_dir / "pubmed_yearly_bar_xw.png"
+    plt.savefig(year_xw_path, dpi=200)
+    plt.close()
+    print(f"Saved yearly bar chart (Xinsheng Wu) to {year_xw_path}")
+else:
+    print("No entries with Xinsheng Wu as author for yearly plot.")
+
+# ---------- 4) 仅含 Xinsheng Wu 的文章：按自然月 ----------
+
+if month_counts and month_counts_xw:
+    # 复用刚才的 months_seq（同一个时间轴）
+    xw_month_values = [month_counts_xw.get((y, m), 0) for (y, m) in months_seq]
+    xw_month_colors = [color_for_count(v) for v in xw_month_values]
+
+    plt.figure(figsize=(max(7, len(months_seq) * 0.4), 3))
+    ax = plt.gca()
+    ax.bar(range(len(months_seq)), xw_month_values, color=xw_month_colors, width=0.9)
+    ax.set_xticks(range(len(months_seq)))
+    ax.set_xticklabels(month_labels, rotation=45, ha="right")
+    ax.set_xlabel("Month", fontsize=10)
+    ax.set_ylabel("Number of publications (author: Xinsheng Wu)", fontsize=10)
+    ax.set_title("Publications per month (author: Xinsheng Wu)", fontsize=11)
+    style_axes(ax)
+
+    ymax_m_xw = max(xw_month_values) if xw_month_values else 0
+    ax.set_ylim(0, ymax_m_xw * 1.25 + 0.5)
+    add_bar_labels(ax, xw_month_values)
+
+    plt.tight_layout()
+    month_xw_path = out_dir / "pubmed_monthly_bar_xw.png"
+    plt.savefig(month_xw_path, dpi=200)
+    plt.close()
+    print(f"Saved monthly bar chart (Xinsheng Wu) to {month_xw_path}")
+else:
+    print("No entries with Xinsheng Wu as author for monthly plot.")
