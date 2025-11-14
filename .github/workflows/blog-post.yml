@@ -2,7 +2,7 @@ name: Update recent publications from PubMed
 
 on:
   schedule:
-    # 每天 UTC 19:00 执行一次（台北 +8 是凌晨 3 点）
+    # 每天 UTC 19:00 执行一次
     - cron: "0 19 * * *"
   workflow_dispatch:
 
