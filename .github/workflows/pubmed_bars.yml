@@ -36,12 +36,16 @@ jobs:
 
       - name: Commit changes
         run: |
-          if git diff --quiet; then
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 先把图片加入暂存区（包括第一次新建的情况）
+          git add assets/pubmed_yearly_bar.png assets/pubmed_monthly_bar.png || true
+
+          # 只根据已暂存内容判断是否有变化（包含新文件）
+          if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add assets/pubmed_yearly_bar.png assets/pubmed_monthly_bar.png
             git commit -m "chore: update PubMed bar charts"
             git push
           fi
