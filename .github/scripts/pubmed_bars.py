@@ -19,25 +19,32 @@ feed = feedparser.parse(RSS_URL)
 # 总篇数
 year_counts = collections.Counter()
 month_counts = collections.Counter()   # key: (year, month)
-# 只统计含有 Xinsheng Wu 的篇数
+# 只统计“Xinsheng Wu 排名第 1 或第 2”的篇数
 year_counts_xw = collections.Counter()
 month_counts_xw = collections.Counter()
 
-def has_xinsheng_wu(entry) -> bool:
-    """判断该条目作者列表中是否包含 Xinsheng Wu（包含 Wu, Xinsheng 等写法）"""
+def has_xinsheng_wu_first2(entry) -> bool:
+    """
+    判断该条目作者列表中，排名第 1 或第 2 是否为 Xinsheng Wu
+    （兼容 Wu, Xinsheng / Xinsheng Wu 等写法）
+    """
     names = []
 
+    # 尝试从 entry.authors 获取作者列表（feedparser 通常会解析 dc:creator）
     if hasattr(entry, "authors"):
-        # feedparser 通常把 <dc:creator> 列到 authors 里
         for a in entry.authors:
             if isinstance(a, dict):
                 names.append(a.get("name", ""))
             else:
                 names.append(str(a))
     elif "author" in entry:
+        # 只有一个 author 字段时，当作第一作者
         names.append(entry.author)
 
-    for name in names:
+    # 只看前两个作者
+    for idx, name in enumerate(names):
+        if idx >= 2:
+            break
         norm = " ".join(str(name).replace(",", " ").split()).lower()
         if "xinsheng" in norm and "wu" in norm:
             return True
@@ -53,8 +60,8 @@ for entry in feed.entries:
     year_counts[dt.year] += 1
     month_counts[(dt.year, dt.month)] += 1
 
-    # 只算 Xinsheng Wu
-    if has_xinsheng_wu(entry):
+    # 只算 Xinsheng Wu 排名第 1 或第 2 的
+    if has_xinsheng_wu_first2(entry):
         year_counts_xw[dt.year] += 1
         month_counts_xw[(dt.year, dt.month)] += 1
 
@@ -181,7 +188,7 @@ if month_counts:
 else:
     print("No entries with month information, skip monthly plot.")
 
-# ---------- 3) 仅含 Xinsheng Wu 的文章：按年份 ----------
+# ---------- 3) 仅“Xinsheng Wu 排名第 1 或第 2”的文章：按年份 ----------
 
 if year_counts_xw:
     xw_year_values = [year_counts_xw.get(y, 0) for y in years]  # 同样的年份轴
@@ -193,8 +200,8 @@ if year_counts_xw:
     ax.set_xticks(range(len(years)))
     ax.set_xticklabels(years)
     ax.set_xlabel("Year", fontsize=10)
-    ax.set_ylabel("Number of publications (author: Xinsheng Wu)", fontsize=10)
-    ax.set_title("Publications per year (author: Xinsheng Wu)", fontsize=11)
+    ax.set_ylabel("Number of publications (1st/2nd author: Xinsheng Wu)", fontsize=10)
+    ax.set_title("Publications per year (1st/2nd author: Xinsheng Wu)", fontsize=11)
     style_axes(ax)
 
     ymax_xw = max(xw_year_values) if xw_year_values else 0
@@ -205,11 +212,11 @@ if year_counts_xw:
     year_xw_path = out_dir / "pubmed_yearly_bar_xw.png"
     plt.savefig(year_xw_path, dpi=200)
     plt.close()
-    print(f"Saved yearly bar chart (Xinsheng Wu) to {year_xw_path}")
+    print(f"Saved yearly bar chart (Xinsheng Wu 1st/2nd) to {year_xw_path}")
 else:
-    print("No entries with Xinsheng Wu as author for yearly plot.")
+    print("No entries with Xinsheng Wu as 1st/2nd author for yearly plot.")
 
-# ---------- 4) 仅含 Xinsheng Wu 的文章：按自然月 ----------
+# ---------- 4) 仅“Xinsheng Wu 排名第 1 或第 2”的文章：按自然月 ----------
 
 if month_counts and month_counts_xw:
     # 复用刚才的 months_seq（同一个时间轴）
@@ -222,8 +229,8 @@ if month_counts and month_counts_xw:
     ax.set_xticks(range(len(months_seq)))
     ax.set_xticklabels(month_labels, rotation=45, ha="right")
     ax.set_xlabel("Month", fontsize=10)
-    ax.set_ylabel("Number of publications (author: Xinsheng Wu)", fontsize=10)
-    ax.set_title("Publications per month (author: Xinsheng Wu)", fontsize=11)
+    ax.set_ylabel("Number of publications (1st/2nd author: Xinsheng Wu)", fontsize=10)
+    ax.set_title("Publications per month (1st/2nd author: Xinsheng Wu)", fontsize=11)
     style_axes(ax)
 
     ymax_m_xw = max(xw_month_values) if xw_month_values else 0
@@ -234,6 +241,6 @@ if month_counts and month_counts_xw:
     month_xw_path = out_dir / "pubmed_monthly_bar_xw.png"
     plt.savefig(month_xw_path, dpi=200)
     plt.close()
-    print(f"Saved monthly bar chart (Xinsheng Wu) to {month_xw_path}")
+    print(f"Saved monthly bar chart (Xinsheng Wu 1st/2nd) to {month_xw_path}")
 else:
-    print("No entries with Xinsheng Wu as author for monthly plot.")
+    print("No entries with Xinsheng Wu as 1st/2nd author for monthly plot.")
