@@ -1,0 +1,47 @@
+name: Update PubMed bar charts
+
+on:
+  schedule:
+    # 每天 UTC 19:00（是凌晨 3 点）
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-pubmed-bars:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install feedparser matplotlib
+
+      - name: Generate yearly & monthly bar charts from PubMed RSS
+        env:
+          # 和你 README 里的 RSS 搜索保持一致，limit 建议大一点（比如 200）
+          PUBMED_RSS_URL: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt/?limit=200"
+        run: |
+          python .github/scripts/pubmed_bars.py
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add assets/pubmed_yearly_bar.png assets/pubmed_monthly_bar.png
+            git commit -m "chore: update PubMed bar charts"
+            git push
+          fi
