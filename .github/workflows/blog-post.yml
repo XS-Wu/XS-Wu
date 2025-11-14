@@ -2,7 +2,8 @@ name: Update recent publications from PubMed
 
 on:
   schedule:
-    - cron: "0 19 * * *"    # 每天 UTC 19:00 执行一次（台北 +8 就是凌晨 3 点）
+    # 每天 UTC 19:00 执行一次（台北 +8 是凌晨 3 点）
+    - cron: "0 19 * * *"
   workflow_dispatch:
 
 permissions:
@@ -18,7 +19,20 @@ jobs:
       - name: Update README with PubMed RSS
         uses: gautamkrishnar/blog-post-workflow@master
         with:
-          feed_list: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt/?limit=15&utm_campaign=pubmed-2&fc=20251114012738"
-          max_post_count: 20
+          feed_list: "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR1I6sxk1bMA3jTm7Uhi20o_g2bcbLaeF-i1tQG1dzLlVEGt/?limit=15&utm_campaign=pubmed-2&fc=20251114012738"
+          max_post_count: 5
           comment_tag_name: "BLOG-POST-LIST"
+
+          # ===== 关键配置：作者 / 期刊 / 年份 =====
+          # PubMed 的作者在 <dc:creator>，映射成 $authors 变量
+          custom_tags: "authors/dc:creator/"
+
+          # 日期格式：这里只显示年份，你想带月日可以改成 'UTC:yyyy-mm-dd'
+          date_format: "UTC:yyyy"
+
+          # 模板：一条记录长这样：
+          # - 标题（粗体，带链接）
+          #   作者. 期刊. 年份. 链接
+          template: "- **$title**$newline  $authors. *$categories*. $date. [$url]($url)$newline"
+
           commit_message: "chore: update recent publications from PubMed"
