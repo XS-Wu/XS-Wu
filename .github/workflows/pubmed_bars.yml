@@ -39,13 +39,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 先把图片加入暂存区（包括第一次新建的情况）
+          # 让当前 HEAD 绑定到本地 main 分支
+          git checkout -B main
+
+          # 把两张图加入暂存区（第一次新建也没问题）
           git add assets/pubmed_yearly_bar.png assets/pubmed_monthly_bar.png || true
 
-          # 只根据已暂存内容判断是否有变化（包含新文件）
+          # 如果没有任何改动，就直接退出
           if git diff --cached --quiet; then
             echo "No changes to commit"
-          else
-            git commit -m "chore: update PubMed bar charts"
-            git push
+            exit 0
           fi
+
+          # 提交本次更新
+          git commit -m "chore: update PubMed bar charts"
+
+          # 拉取远端 main，并把这个提交 rebase 到最新的 main 上，避免 non-fast-forward
+          git pull --rebase origin main
+
+          # 推回远端
+          git push origin main
