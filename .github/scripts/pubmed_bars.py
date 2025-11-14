@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 # 用环境变量传入 PubMed RSS URL，没设就用默认这个
 RSS_URL = os.environ.get(
     "PUBMED_RSS_URL",
-    "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt/?limit=200"
+    "https://pubmed.ncbi.nlm.nih.gov/rss/search/1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt/?limit=15&utm_campaign=pubmed-2&fc=20251114012738"
 )
 
 print(f"Fetching RSS from: {RSS_URL}")
