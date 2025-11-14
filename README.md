@@ -21,12 +21,17 @@
   </a>
 </p>
 
+### 🛠️ Tools & stacks
 
-![Github Stats](https://github-readme-stats.vercel.app/api?username=XS-Wu&show_icons=true&theme=radical)
+<p>
+  <img src="https://img.shields.io/badge/R-tidyverse-198CE7?style=flat&logo=r&logoColor=white" />
+  <img src="https://img.shields.io/badge/Python-pandas-3776AB?style=flat&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/VS%20Code-IDE-007ACC?style=flat&logo=visual-studio-code&logoColor=white" />
+  <img src="https://img.shields.io/badge/Neo4j-graph%20DB-008CC1?style=flat&logo=neo4j&logoColor=white" />
+  <img src="https://img.shields.io/badge/LLM-Qwen3%20%7C%20Gemini-FF6A00?style=flat" />
+</p>
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=XS-Wu&layout=compact)
 
-[![trophy](https://github-profile-trophy.vercel.app/?username=XS-Wu&theme=onedark)](https://github.com/ryo-ma/github-profile-trophy)
 
 ## Recent publications
 
@@ -51,3 +56,11 @@
 
 - **Xinsheng Wu**. **Longitudinal trajectories of weight changes among people living with HIV on antiretroviral therapy: A group-based study**. *iScience*. 2023. [PubMed](https://pubmed.ncbi.nlm.nih.gov/38026178/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1lyR11GsxK1bMA3jTm7Uhi20O_g2bcbLaEf-itlqG1dZLlVEGt&fc=20251114012738&ff=20251114021150&v=2.18.0.post22+67771e2)
 <!-- BLOG-POST-LIST:END -->
+
+
+
+![Github Stats](https://github-readme-stats.vercel.app/api?username=XS-Wu&show_icons=true&theme=radical)
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=XS-Wu&layout=compact)
+
+[![trophy](https://github-profile-trophy.vercel.app/?username=XS-Wu&theme=onedark)](https://github.com/ryo-ma/github-profile-trophy)
