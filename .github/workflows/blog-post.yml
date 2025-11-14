@@ -26,7 +26,7 @@ jobs:
           # 从 PubMed RSS 拿作者和期刊
           custom_tags: "authors/dc:creator/,journal/dc:source/"
           # 注意：用 $newline 在每条目前后加换行
-          template: "$newline- **$title**. $authors. *$journal*. $date. [PubMed]($url)$newline"
+          template: "$newline- $authors. **$title**. *$journal*. $date. [PubMed]($url)$newline"
           # JS：清洗作者，最多保留前 5 个，>5 时加 “et al.”，并把 Xinsheng Wu 加粗
           item_exec: |
             if (post.authors) {
