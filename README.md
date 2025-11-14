@@ -48,10 +48,17 @@
 
 ![Publications per year](assets/pubmed_yearly_bar.png)
 
-### 📊 Publications per month (last 12 months)
+### 📊 Publications per month
 
 ![Publications per month](assets/pubmed_monthly_bar.png)
 
+### 📈 Publications per year (First author)
+
+![Publications per year (Xinsheng Wu)](assets/pubmed_yearly_bar_xw.png)
+
+### 📊 Publications per month (First author)
+
+![Publications per month (Xinsheng Wu)](assets/pubmed_monthly_bar_xw.png)
 
 ## Recent publications
 
