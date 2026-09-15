@@ -1,6 +1,6 @@
 
 <h2 align="center">
-  Xinsheng Wu · PhD Candidate from Fudan University
+  Dr.Xinsheng Wu from Fudan University
 </h2>
 
 <p align="center">
