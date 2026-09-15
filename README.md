@@ -36,7 +36,7 @@
   <img src="https://img.shields.io/badge/Python-pandas-3776AB?style=flat&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/VS%20Code-IDE-007ACC?style=flat&logo=visual-studio-code&logoColor=white" />
   <img src="https://img.shields.io/badge/Neo4j-graph%20DB-008CC1?style=flat&logo=neo4j&logoColor=white" />
-  <img src="https://img.shields.io/badge/LLM-Qwen3%20%7C%20Gemini-FF6A00?style=flat" />
+  <img src="https://img.shields.io/badge/LLM-Qwen-FF6A00?style=flat" />
   <img src="https://img.shields.io/badge/SAS-BASE%20%7C%20STAT%20%7C%20GRAPH%20%7C%20ETS%20%7C%20EM%20%7C%20OR-1E90FF?style=flat&logo=sas&logoColor=white" />
 </p>
 
