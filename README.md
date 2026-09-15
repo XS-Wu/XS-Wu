@@ -1,7 +1,11 @@
 
 <h2 align="center">
-  Dr.Xinsheng Wu from Fudan University
+  Dr. Xinsheng Wu from Fudan University
+  <img src="https://img.shields.io/endpoint?url=https://google-scholar-badge.vercel.app/citations?user=PoPkL4IAAAAJ" />
+  <img src="https://img.shields.io/badge/h--index-16-blue" />
 </h2>
+
+
 
 <p align="center">
   <a href="https://scholar.google.com/citations?hl=en&user=PoPkL4IAAAAJ"><b>Google Scholar</b></a> ·
