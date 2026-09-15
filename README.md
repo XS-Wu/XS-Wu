@@ -1,8 +1,6 @@
 
 <h2 align="center">
   Dr. Xinsheng Wu from Fudan University
-  <img src="https://img.shields.io/endpoint?url=https://google-scholar-badge.vercel.app/citations?user=PoPkL4IAAAAJ" />
-  <img src="https://img.shields.io/badge/h--index-16-blue" />
 </h2>
 
 
@@ -16,6 +14,12 @@
 <p align="center">
   <a href="https://scholar.google.com/citations?hl=en&user=PoPkL4IAAAAJ">
     <img src="https://img.shields.io/badge/Scholar-Profile-4285F4?style=flat&logo=google-scholar&logoColor=white" alt="Google Scholar">
+  </a>
+  <a href="https://scholar.google.com/citations?user=PoPkL4IAAAAJ">
+    <img src="https://img.shields.io/endpoint?url=https://google-scholar-badge.vercel.app/citations?user=PoPkL4IAAAAJ" />
+  </a>
+  <a href="https://scholar.google.com/citations?user=PoPkL4IAAAAJ">
+    <img src="https://img.shields.io/badge/h--index-16-blue" />
   </a>
   <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Xinsheng+Wu+Huachun+Zou">
     <img src="https://img.shields.io/badge/PubMed-Papers-2E6C99?style=flat&logo=pubmed&logoColor=white" alt="PubMed">
